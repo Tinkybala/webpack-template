@@ -1,5 +1,6 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
+const { options } = require('yargs');
 
  module.exports = {
    entry: './src/index.js',
@@ -28,6 +29,18 @@ const path = require('path');
         test: /\.(woff|woff2|eot|ttf|otf)$/i,
         type: 'asset/resource',
       },
+      {
+        test: /\.(?:js|mjs|cjs)$/,
+        exclude: /node_modules/,
+        use:{
+          loader: 'babel-loader',
+          options: {
+            presets: [
+              ['@babel/preset-env', {targets: 'defaults'}]
+            ]
+          }
+        }
+      }
      ],
    },
  };
